@@ -1,0 +1,67 @@
+{
+	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
+	"namespace": "Maso",
+	"data": {
+		"gamemodes": [{
+			"id": "MasoAdventure",
+			"name": "Masochist Mode",
+			"media": "assets/RandomAdventure.png",
+			"rules": [
+				"All standard Adventure Mode rules apply.",
+				"Skill unlocks are randomized."
+			],
+			"textClass": "text-info",
+			"btnClass": "btn-gamemode-adventure",
+			"isPermaDeath": true,
+			"isEvent": false,
+			"endDate": 0,
+			"combatTriangle": "Hardcore",
+			"hitpointMultiplier": 100,
+			"hasRegen": true,
+			"capNonCombatSkillLevels": true,
+			"startingPage": "melvorD:Combat",
+			"startingItems": [{
+				"id": "melvorD:Bronze_Sword",
+				"quantity": 1
+			}, {
+				"id": "melvorD:Shrimp",
+				"quantity": 10
+			}],
+			"allowSkillUnlock": true,
+			"skillUnlockCost": [
+				10000,
+				25000,
+				50000,
+				200000,
+				250000,
+				400000,
+				1000000,
+				2500000,
+				10000000,
+				25000000,
+				50000000,
+				100000000,
+				200000000,
+				500000000,
+				500000000,
+				500000000,
+				500000000,
+				500000000,
+				500000000,
+				500000000,
+				500000000,
+				500000000
+			],
+			"playerModifiers": {},
+			"enemyModifiers": {},
+			"hasTutorial": false,
+			"description": "For experienced Melvor Idle players. A completely different experience for you to enjoy.",
+			"startingSkills": [
+				"melvorD:Attack",
+				"melvorD:Strength",
+				"melvorD:Defence",
+				"melvorD:Hitpoints"
+			]
+		}]
+	}
+}
