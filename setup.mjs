@@ -3,37 +3,45 @@ export async function setup(ctx) {
   ctx.onCharacterLoaded(ctx => {
     // Modify or hook into game objects to influence offline calculations
     if (game.currentGamemode.localID === "ByReleaseMode") {
+      preventMeteorite();
       checkAoDLock(ctx);
+      // const target = "melvorD:MummaChicken";
+      // ctx.patch(CombatManager, "onEnemyDeath").after(patchOnEnemyDeath(ctx, target));
     }
   });
 }
 
 function checkAoDLock(ctx) {
   setLevelCapIncrease();
+  
   const dungeon_ID = 'melvorTotH:Throne_of_the_Herald';
-  let dungeonReq = game.dungeons.getObjectByID(dungeon_ID);
-  const hasDungeon = game.combat.dungeonCompletion.has(dungeonReq);
+  const dungeonReq = game.dungeons.getObjectByID(dungeon_ID);
+  var hasDungeon = game.combat.dungeonCompletion.has(dungeonReq);
   const requirementData = {
     dungeonID: dungeon_ID,
     count: 1
   };
-  preventMeteorite(hasDungeon);
-  addDungeonRequirementToAreas(hasDungeon, requirementData);
-  preventAoDAuroras(hasDungeon, requirementData);
+  
+  addDungeonRequirementToAreas(dungeonReq, requirementData);
+  preventAoDAuroras(dungeonReq, requirementData);
   if (!hasDungeon) {
     ctx.patch(Mining, 'renderRockUnlock').replace(replaceRenderRockUnlock(dungeon_ID));
     ctx.patch(Astrology, 'renderVisibleConstellations').replace(replaceRenderVisibleConstellations(dungeon_ID));
   }
 }
 
-function preventMeteorite(hasDungeon) {
+function preventMeteorite() {
+  const dungeon_ID = 'melvorF:Impending_Darkness';
+  const dungeonReq = game.dungeons.getObjectByID(dungeon_ID);
+  var hasDungeon = game.combat.dungeonCompletion.has(dungeonReq);
   game.astrology.actions.registeredObjects.forEach((constellation) => {
     constellation.canLocateMeteorite = hasDungeon;
   });
 }
 
 // Function to add a dungeon requirement to all areas in a given namespace map
-function addDungeonRequirementToAreas(hasDungeon, requirementData) {
+function addDungeonRequirementToAreas(dungeonReq, requirementData) {
+  var hasDungeon = game.combat.dungeonCompletion.has(dungeonReq);
   const requirement = new DungeonRequirement(requirementData, game);
   game.combatAreas.namespaceMaps.get("melvorAoD").entries().forEach(([key, combatArea]) => {
     const index = combatArea._entryRequirements.findIndex(req => req.dungeonID === requirementData.dungeonID);
@@ -48,7 +56,8 @@ function addDungeonRequirementToAreas(hasDungeon, requirementData) {
   });
 }
 
-function preventAoDAuroras(hasDungeon, requirementData) {
+function preventAoDAuroras(dungeonReq, requirementData) {
+  var hasDungeon = game.combat.dungeonCompletion.has(dungeonReq);
   const requirement = new DungeonRequirement(requirementData, game);
   game.auroraSpells.namespaceMaps.get("melvorAoD").entries().forEach(([key, spell]) => {
     const index = spell.requirements.findIndex(req => req.dungeonID === requirementData.dungeonID);
@@ -79,7 +88,7 @@ function setLevelCapIncrease() {
   }
 }
 
-function replaceRenderRockUnlock(dungeon_ID) {
+function replaceRenderRockUnlock(dungeonReq) {
   return function(original) {
 
     if (!this.renderQueue.rockUnlock)
@@ -93,8 +102,6 @@ function replaceRenderRockUnlock(dungeon_ID) {
             rockMenu.setLocked();
         } else {
             if (rock._namespace.name === "melvorAoD") {
-              console.log("The namespace of rock is: ", rock._namespace.name);
-              let dungeonReq = game.dungeons.getObjectByID(dungeon_ID);
               const hasDungeon = game.combat.dungeonCompletion.has(dungeonReq);
               if (!hasDungeon) {
                 rockMenu.setLockedContainer(rock);
@@ -119,12 +126,11 @@ function replaceRenderRockUnlock(dungeon_ID) {
   }
 }
 
-function replaceRenderVisibleConstellations(dungeon_ID) {
+function replaceRenderVisibleConstellations(dungeonReq) {
   return function(original) {
     if (!this.renderQueue.visibleConstellations)
       return;
-    let dungeonReq = game.dungeons.getObjectByID(dungeon_ID);
-    let hasDungeon = game.combat.dungeonCompletion.has(dungeonReq);
+    var hasDungeon = game.combat.dungeonCompletion.has(dungeonReq);
     if (this.exploredConstellation === undefined) {
         let lowestLocked;
         this.actions.forEach((constellation)=>{
@@ -150,7 +156,6 @@ function replaceRenderVisibleConstellations(dungeon_ID) {
         if (lowestLocked === undefined) {
             hideElement(astrologyMenus.locked);
         } else {
-          // console.log("The name of lowest is: ", lowestLocked);
             astrologyMenus.locked.setConstellation(lowestLocked, this);
             showElement(astrologyMenus.locked);
         }
@@ -178,3 +183,15 @@ function replaceRenderVisibleConstellations(dungeon_ID) {
     this.renderQueue.visibleConstellations = false;
   }
 }
+
+// function patchOnEnemyDeath(ctx, target) {
+//   return function() {
+//     var _b;
+//     var check = ((_b = this.enemy.monster) === null || _b === void 0 ? void 0 : _b.id) === target && this.game.stats.monsterKillCount(this.enemy.monster) === 1;
+//     if (check) {
+//       checkAoDLock(ctx);
+//     }
+    
+//   }
+// }
+
