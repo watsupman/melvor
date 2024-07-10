@@ -3,6 +3,7 @@ export async function setup(ctx) {
   ctx.onCharacterLoaded(ctx => {
     // Modify or hook into game objects to influence offline calculations
     if (game.currentGamemode.localID === "ByReleaseMode") {
+      mod.api.mythCombatSimulator?.registerNamespace('byRelease')
       preventMeteorite();
       checkAoDLock(ctx);
       // const target = "melvorD:MummaChicken";

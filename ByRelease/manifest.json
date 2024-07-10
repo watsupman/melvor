@@ -1,5 +1,5 @@
 {
     "namespace": "byRelease",
-    "icon": "assets/ByRelease.png",
+    "icon": "assets/icon.png",
     "setup": "setup.mjs"
   }

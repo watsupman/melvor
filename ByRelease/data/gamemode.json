@@ -5,7 +5,7 @@
 		"gamemodes": [{
 			"id": "ByReleaseMode",
 			"name": "Expansions By Release Mode",
-			"media": "assets/ByRelease.png",
+			"media": "assets/icon.png",
 			"rules": [
 				"Uses the Hardcore combat triangle.",
 				"Skills are locked at max level of 99 until Impending Darkness is cleared.",
