@@ -1,25 +1,26 @@
 {
 	"$schema": "https://melvoridle.com/assets/schema/gameData.json",
-	"namespace": "Maso",
+	"namespace": "byRelease",
 	"data": {
 		"gamemodes": [{
-			"id": "MasoAdventure",
-			"name": "Masochist Mode",
-			"media": "assets/RandomAdventure.png",
+			"id": "ByReleaseMode",
+			"name": "Expansions By Release Mode",
+			"media": "assets/ByRelease.png",
 			"rules": [
-				"All standard Adventure Mode rules apply.",
-				"Skill unlocks are randomized."
+				"Uses the Hardcore combat triangle.",
+				"Skills are locked at max level of 99 until Impending Darkness is cleared.",
+				"Cartography and Archaeology are unlocked after Throne of the Herald is cleared"
 			],
 			"textClass": "text-info",
-			"btnClass": "btn-gamemode-adventure",
-			"isPermaDeath": true,
+			"btnClass": "btn-gamemode-normal",
+			"isPermaDeath": false,
 			"isEvent": false,
 			"endDate": 0,
 			"combatTriangle": "Hardcore",
-			"hitpointMultiplier": 100,
+			"hitpointMultiplier": 10,
 			"hasRegen": true,
-			"capNonCombatSkillLevels": true,
-			"startingPage": "melvorD:Combat",
+			"capNonCombatSkillLevels": false,
+			"startingPage": "melvorD:Bank",
 			"startingItems": [{
 				"id": "melvorD:Bronze_Sword",
 				"quantity": 1
@@ -27,31 +28,8 @@
 				"id": "melvorD:Shrimp",
 				"quantity": 10
 			}],
-			"allowSkillUnlock": true,
-			"skillUnlockCost": [
-				10000,
-				25000,
-				50000,
-				200000,
-				250000,
-				400000,
-				1000000,
-				2500000,
-				10000000,
-				25000000,
-				50000000,
-				100000000,
-				200000000,
-				500000000,
-				500000000,
-				500000000,
-				500000000,
-				500000000,
-				500000000,
-				500000000,
-				500000000,
-				500000000
-			],
+			"allowSkillUnlock": false,
+			"skillUnlockCost": [],
 			"playerModifiers": {},
 			"enemyModifiers": {},
 			"hasTutorial": false,
@@ -60,8 +38,53 @@
 				"melvorD:Attack",
 				"melvorD:Strength",
 				"melvorD:Defence",
-				"melvorD:Hitpoints"
-			]
+				"melvorD:Hitpoints",
+				"melvorD:Ranged",
+				"melvorD:Magic",
+				"melvorD:Prayer",
+				"melvorD:Slayer",
+				"melvorD:Farming",
+				"melvorD:Township",
+				"melvorD:Woodcutting",
+				"melvorD:Fishing",
+				"melvorD:Firemaking",
+				"melvorD:Cooking",
+				"melvorD:Mining",
+				"melvorD:Smithing",
+				"melvorD:Thieving",
+				"melvorD:Fletching",
+				"melvorD:Crafting",
+				"melvorD:Runecrafting",
+				"melvorD:Herblore",
+				"melvorD:Agility",
+				"melvorD:Summoning",
+				"melvorD:Astrology"
+			],
+			"allowXPOverLevelCap": false,
+			"defaultInitialLevelCap": 99,
+			"skillUnlockRequirements": [
+				{
+					"skillID": "melvorAoD:Cartography",
+					"requirements": [
+						{
+							"dungeonID": "melvorTotH:Throne_of_the_Herald",
+							"type": "DungeonCompletion",
+							"count": 1
+						}
+					]
+				},
+				{
+					"skillID": "melvorAoD:Archaeology",
+					"requirements": [
+						{
+							"dungeonID": "melvorTotH:Throne_of_the_Herald",
+							"type": "DungeonCompletion",
+							"count": 1
+						}
+					]
+				}
+			],
+			"levelCapIncreases": ["melvorAoD:ImpendingDarknessSet100"]
 		}]
 	}
 }
