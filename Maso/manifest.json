@@ -1,5 +1,0 @@
-{
-    "namespace": "maso",
-    "icon": "assets/icon.png",
-    "setup": "setup.mjs"
-  }
