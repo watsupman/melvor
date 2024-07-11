@@ -3,7 +3,7 @@ export async function setup(ctx) {
   ctx.onCharacterLoaded(ctx => {
     // Modify or hook into game objects to influence offline calculations
     if (game.currentGamemode.localID === "ByReleaseMode") {
-      mod.api.mythCombatSimulator?.registerNamespace('byRelease')
+      mod.api.mythCombatSimulator?.registerNamespace('byRelease');
       preventMeteorite();
       checkAoDLock(ctx);
       // const target = "melvorD:MummaChicken";
@@ -15,6 +15,7 @@ export async function setup(ctx) {
 function checkAoDLock(ctx) {
   setLevelCapIncrease();
   
+  // const dungeon_ID = 'melvorTotH:Throne_of_the_Herald';
   const dungeon_ID = 'melvorTotH:Throne_of_the_Herald';
   const dungeonReq = game.dungeons.getObjectByID(dungeon_ID);
   var hasDungeon = game.combat.dungeonCompletion.has(dungeonReq);
@@ -81,11 +82,6 @@ function setLevelCapIncrease() {
     impendingDarknessSet.setIncreases.forEach(skillIncrease => {
       skillIncrease.value = 120;  // Updating the value to 120
     });
-    // Modify the dungeon requirement for testing
-    // let requirementSet = impendingDarknessSet.requirementSets.get(0);
-    // if (requirementSet && requirementSet.requirements && requirementSet.requirements.length > 0) {
-    //   impendingDarknessSet.requirementSets.get(0).requirements[0].dungeon = game.dungeons.getObjectByID('melvorF:Impending_Darkness');
-    // }
   }
 }
 
@@ -184,15 +180,4 @@ function replaceRenderVisibleConstellations(dungeonReq) {
     this.renderQueue.visibleConstellations = false;
   }
 }
-
-// function patchOnEnemyDeath(ctx, target) {
-//   return function() {
-//     var _b;
-//     var check = ((_b = this.enemy.monster) === null || _b === void 0 ? void 0 : _b.id) === target && this.game.stats.monsterKillCount(this.enemy.monster) === 1;
-//     if (check) {
-//       checkAoDLock(ctx);
-//     }
-    
-//   }
-// }
 
