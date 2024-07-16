@@ -1,0 +1,6 @@
+{
+    "namespace": "queueRun",
+    "icon": "assets/icon.png",
+    "setup": "setup.mjs",
+    "load": ["data/templates.html"]
+  }
