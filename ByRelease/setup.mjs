@@ -45,7 +45,7 @@ function preventMeteorite() {
 function addDungeonRequirementToAreas(dungeonReq, requirementData) {
   var hasDungeon = game.combat.dungeonCompletion.has(dungeonReq);
   const requirement = new DungeonRequirement(requirementData, game);
-  game.combatAreas.namespaceMaps.get("melvorAoD").entries().forEach(([key, combatArea]) => {
+  game.combatAreas.namespaceMaps.get("melvorAoD").forEach((combatArea, key) => {
     const index = combatArea._entryRequirements.findIndex(req => req.dungeonID === requirementData.dungeonID);
 
     if (!hasDungeon && index === -1) {
@@ -61,7 +61,7 @@ function addDungeonRequirementToAreas(dungeonReq, requirementData) {
 function preventAoDAuroras(dungeonReq, requirementData) {
   var hasDungeon = game.combat.dungeonCompletion.has(dungeonReq);
   const requirement = new DungeonRequirement(requirementData, game);
-  game.auroraSpells.namespaceMaps.get("melvorAoD").entries().forEach(([key, spell]) => {
+  game.auroraSpells.namespaceMaps.get("melvorAoD").forEach((spell, key) => {
     const index = spell.requirements.findIndex(req => req.dungeonID === requirementData.dungeonID);
 
     if (!hasDungeon && index === -1) {
