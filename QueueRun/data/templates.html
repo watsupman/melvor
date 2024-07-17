@@ -1,8 +1,9 @@
-<template id="queue-run">
-  <button 
-    :class="'btn btn-sm m-1 w-100 ' + (isSelected ? 'btn-success' : 'btn-secondary')"
-    @click="queueRun"
-  >
+<template id="queue-run-template">
+  <button v-if="show"
+          id="queue-run"
+          class="btn btn-sm m-1 w-100"
+          :class="isSelected ? 'btn-success' : 'btn-secondary'"
+          @click="queueRun">
     Queue Run
   </button>
 </template>
